@@ -261,7 +261,7 @@
           }
         }
 
-        async function adManualCard() {
+        async function addManualCard() {
           if (!newFront.trim() || !newBack.trim()) return;
           const card = { id: newId(), front: newFront.trim(), back: newBack.trim(), ...DEFAULT_CARD() };
           setCards((prev) => [...prev, card]);
