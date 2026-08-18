@@ -35,7 +35,7 @@
 <body>
 <div id="root"></div>
 
-<script type="text/babel" data-presets="react">
+<script type="text/plain" id="app-source">
 const { useState, useEffect, useRef, useCallback } = React;
 
 // ---------- Supabase ----------
@@ -550,6 +550,20 @@ function ManageView({ cards, search, setSearch, newFront, setNewFront, newBack, 
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+
+<script>
+  // 위 app-source를 classic 런타임(React.createElement)으로 직접 컴파일해서 실행.
+  // (import 구문이 들어간 automatic 런타임 출력을 피하기 위해 수동으로 처리함)
+  (function () {
+    const source = document.getElementById("app-source").textContent;
+    const output = Babel.transform(source, {
+      presets: [["react", { runtime: "classic" }]],
+    }).code;
+    const script = document.createElement("script");
+    script.textContent = output;
+    document.body.appendChild(script);
+  })();
 </script>
 
 <script>
